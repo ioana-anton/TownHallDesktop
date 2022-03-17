@@ -28,6 +28,7 @@ namespace TownHallD.Repositories
         public async Task DeleteHouse(House house)
         {
             databaseContext.Houses.Remove(databaseContext.Houses.Single(a => a.Id.Equals(house.Id) == true));
+            databaseContext.Requests.Remove(databaseContext.Requests.Single(a => a.House == house));
             await databaseContext.SaveChangesAsync();
         }
 

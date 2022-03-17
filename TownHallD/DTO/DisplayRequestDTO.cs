@@ -14,14 +14,17 @@ namespace TownHallD.DTO
         public String User { get; set; }
         public String Document { get; set; }
 
+        public DateTime Date { get; set; }
+
         public DisplayRequestDTO() { }
-        public DisplayRequestDTO(String id, String state, String house, String user, String document)
+        public DisplayRequestDTO(String id, String state, String house, String user, String document, DateTime date)
         {
             Id = id;
             State = state;
             House = house;
             User = user;
             Document = document;
+            Date = date;
         }
     }
 }

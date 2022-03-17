@@ -100,6 +100,7 @@
             // 
             // RegisterButton
             // 
+            this.RegisterButton.ForeColor = System.Drawing.SystemColors.Control;
             this.RegisterButton.Location = new System.Drawing.Point(290, 277);
             this.RegisterButton.Name = "RegisterButton";
             this.RegisterButton.Size = new System.Drawing.Size(112, 34);

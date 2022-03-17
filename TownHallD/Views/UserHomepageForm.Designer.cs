@@ -41,6 +41,7 @@
             this.AddHouseButton = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.RequestPanel = new System.Windows.Forms.Panel();
+            this.StateButton = new System.Windows.Forms.Button();
             this.UpdateRequestButton = new System.Windows.Forms.Button();
             this.RemoveRequestButton = new System.Windows.Forms.Button();
             this.AddRequestButton = new System.Windows.Forms.Button();
@@ -48,6 +49,8 @@
             this.HouseComboBox = new System.Windows.Forms.ComboBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.AdminLabel = new System.Windows.Forms.Label();
             this.HousesPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.RequestPanel.SuspendLayout();
@@ -188,6 +191,7 @@
             // 
             // RequestPanel
             // 
+            this.RequestPanel.Controls.Add(this.StateButton);
             this.RequestPanel.Controls.Add(this.UpdateRequestButton);
             this.RequestPanel.Controls.Add(this.RemoveRequestButton);
             this.RequestPanel.Controls.Add(this.AddRequestButton);
@@ -199,10 +203,21 @@
             this.RequestPanel.Size = new System.Drawing.Size(664, 427);
             this.RequestPanel.TabIndex = 7;
             // 
+            // StateButton
+            // 
+            this.StateButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.StateButton.Location = new System.Drawing.Point(558, 31);
+            this.StateButton.Name = "StateButton";
+            this.StateButton.Size = new System.Drawing.Size(77, 55);
+            this.StateButton.TabIndex = 6;
+            this.StateButton.Text = "Set";
+            this.StateButton.UseVisualStyleBackColor = true;
+            this.StateButton.Click += new System.EventHandler(this.StateButton_Click);
+            // 
             // UpdateRequestButton
             // 
             this.UpdateRequestButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.UpdateRequestButton.Location = new System.Drawing.Point(457, 61);
+            this.UpdateRequestButton.Location = new System.Drawing.Point(393, 61);
             this.UpdateRequestButton.Name = "UpdateRequestButton";
             this.UpdateRequestButton.Size = new System.Drawing.Size(139, 45);
             this.UpdateRequestButton.TabIndex = 5;
@@ -213,7 +228,7 @@
             // RemoveRequestButton
             // 
             this.RemoveRequestButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.RemoveRequestButton.Location = new System.Drawing.Point(457, 10);
+            this.RemoveRequestButton.Location = new System.Drawing.Point(393, 10);
             this.RemoveRequestButton.Name = "RemoveRequestButton";
             this.RemoveRequestButton.Size = new System.Drawing.Size(139, 45);
             this.RemoveRequestButton.TabIndex = 4;
@@ -224,7 +239,7 @@
             // AddRequestButton
             // 
             this.AddRequestButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.AddRequestButton.Location = new System.Drawing.Point(244, 34);
+            this.AddRequestButton.Location = new System.Drawing.Point(225, 36);
             this.AddRequestButton.Name = "AddRequestButton";
             this.AddRequestButton.Size = new System.Drawing.Size(139, 45);
             this.AddRequestButton.TabIndex = 3;
@@ -261,6 +276,7 @@
             this.dataGridView2.RowTemplate.Height = 33;
             this.dataGridView2.Size = new System.Drawing.Size(630, 292);
             this.dataGridView2.TabIndex = 0;
+            this.dataGridView2.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView2_ColumnHeaderMouseClick);
             // 
             // label1
             // 
@@ -271,11 +287,31 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "IdUser";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(11, 86);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(77, 25);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "isAdmin";
+            // 
+            // AdminLabel
+            // 
+            this.AdminLabel.AutoSize = true;
+            this.AdminLabel.Location = new System.Drawing.Point(112, 86);
+            this.AdminLabel.Name = "AdminLabel";
+            this.AdminLabel.Size = new System.Drawing.Size(40, 25);
+            this.AdminLabel.TabIndex = 10;
+            this.AdminLabel.Text = "null";
+            // 
             // UserHomepageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(923, 520);
+            this.Controls.Add(this.AdminLabel);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.RequestPanel);
             this.Controls.Add(this.HousesPanel);
@@ -335,5 +371,14 @@
         private Button UpdateRequestButton;
         private Button RemoveRequestButton;
         private Label label1;
+        private Label label2;
+        private Label AdminLabel;
+
+        public void setAdminLabel(String s)
+        {
+            AdminLabel.Text = s;
+        }
+
+        private Button StateButton;
     }
 }

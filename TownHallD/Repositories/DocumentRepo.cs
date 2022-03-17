@@ -26,6 +26,7 @@ namespace TownHallD.Repositories
         public async Task DeleteDocument(Document document)
         {
             databaseContext.Documents.Remove(databaseContext.Documents.Single(a => a.Id.Equals(document.Id) == true));
+            databaseContext.Requests.Remove(databaseContext.Requests.Single(a => a.Document == document));
             await databaseContext.SaveChangesAsync();
         }
 

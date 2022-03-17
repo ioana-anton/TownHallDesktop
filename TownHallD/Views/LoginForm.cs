@@ -59,6 +59,7 @@ namespace TownHallD
 
                     homepageForm.setTestLabel(res.Name);
                     homepageForm.setIdUserLabel(res.Id);
+                    homepageForm.setAdminLabel(res.IsAdmin.ToString());
                     if (res.IsAdmin == false) homepageForm.hideAdminButton();
                     homepageForm.Show();
 

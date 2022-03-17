@@ -33,7 +33,7 @@ namespace TownHallD
 
             }
 
-            //CreateHostBuilder().Build().Run(); - pentru crearea bazei de date
+            // CreateHostBuilder().Build().Run(); //-pentru crearea bazei de date
         }
 
         public static IHostBuilder CreateHostBuilder() =>

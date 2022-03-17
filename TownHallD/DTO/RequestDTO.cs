@@ -14,5 +14,7 @@ namespace TownHallD.DTO
         public House House { get; set; }
         public User User { get; set; }
         public Document Document { get; set; }
+
+        public DateTime Date { get; set; }
     }
 }

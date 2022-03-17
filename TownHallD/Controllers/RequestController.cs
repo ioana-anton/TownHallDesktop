@@ -45,6 +45,20 @@ namespace TownHallD.Controllers
 
         }
 
+        public async Task<List<RequestDTO>> ShowSortedRequestsByDate()
+        {
+            try
+            {
+                var res = await _requestService.GetSortedRequestsByDate();
+
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(Utils.Constants.ErrorMessages.SELECT_REQUESTS_ERROR_MESSAGE);
+            }
+
+        }
         public async Task AddRequest(String idUser, String address, String docType)
         {
             try
@@ -73,5 +87,18 @@ namespace TownHallD.Controllers
             }
         }
 
+        public async Task UpdateRequestAdmin(RequestDTO request, String state)
+        {
+            try
+            {
+
+                await _requestService.UpdateRequestAdmin(request, state);
+            }
+            catch (ArgumentNullException ex)
+            {
+
+                throw new Exception(Utils.Constants.ErrorMessages.UPDATE_REQUEST_ERROR_MESSAGE);
+            }
+        }
     }
 }

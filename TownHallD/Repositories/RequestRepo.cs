@@ -33,6 +33,17 @@ namespace TownHallD.Repositories
             await databaseContext.SaveChangesAsync();
         }
 
+        public async Task UpdateRequestAdmin(Request request, String state)
+        {
+            // request.House = databaseContext.Houses.Where(a => a.Address.Equals(house)).FirstOrDefault();
+            // request.Document = databaseContext.Documents.Where(a => a.Type.Equals(document)).FirstOrDefault();
+            await DeleteRequest(databaseContext.Requests.Where(a => a.Id.Equals(request.Id)).FirstOrDefault());
+            await InsertNewRequest(request, request.User.Id, request.House.Address, request.Document.Type, state);
+            //request.State = state;
+            //databaseContext.Entry(request).Property("State").IsModified = true;
+            await databaseContext.SaveChangesAsync();
+        }
+
         public async Task<List<Request>> GetAllRequests()
         {
             var reqs = databaseContext.Requests.ToList();
@@ -40,14 +51,24 @@ namespace TownHallD.Repositories
             return reqs;
         }
 
-        public async Task InsertNewRequest(Request request, String idUser, String address, String doctype)
+        public async Task<List<Request>> GetSortedRequestsByDate()
         {
 
+            List<Request> reqs = (List<Request>)databaseContext.Requests.ToList().OrderBy(item => item.Date);
+            //Console.WriteLine(reqs[0].House.Id);
+            return reqs;
+        }
+
+        public async Task InsertNewRequest(Request request, String idUser, String address, String doctype, String State = null)
+        {
 
             request.User = await databaseContext.Users.FindAsync(idUser);
             request.House = (House)databaseContext.Houses.Where(a => a.Address.Equals(address)).FirstOrDefault();
             request.Document = (Document)databaseContext.Documents.Where(a => a.Type.Equals(doctype)).FirstOrDefault();
-
+            request.Date = DateTime.Now;
+            if (State != null)
+                request.State = State;
+            Console.WriteLine(request.Date);
             databaseContext.Requests.Add(request);
             await databaseContext.SaveChangesAsync();
         }

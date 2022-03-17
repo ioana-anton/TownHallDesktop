@@ -148,6 +148,42 @@ namespace TownHallD.Views
             Program.MyAppCxt.MainForm.Show();
             // form.Show();
         }
+
+        private void RemoveRequestButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void UpdateRequestButton_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("Hello!");
+            try
+            {
+
+                List<RequestDTO> reqs = await _requestController.ShowRequests();
+                // List<DisplayRequestDTO> r = dataGridView2.ToList();
+
+
+                if (reqs != null)
+                {
+                    DataGridViewRow row = new DataGridViewRow();
+                    for (int i = 0; i < reqs.Count - 1; i++)
+                    {
+                        row = dataGridView2.Rows[i];
+                        var req = reqs.ElementAt(i);
+                        var newState = row.Cells[1].Value.ToString();
+                        Console.WriteLine(req.State);
+                        await _requestController.UpdateRequestAdmin(req, newState);
+                    }
+                }
+
+                showRequests();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 
 }

@@ -45,6 +45,18 @@ namespace TownHallD.Services
 
         }
 
+        public async Task<List<RequestDTO>> GetSortedRequestsByDate()
+        {
+            var reqs = await _requestRepo.GetSortedRequestsByDate();
+            if (reqs == null) return null;
+            else
+            {
+
+                return _mapper.Map<List<RequestDTO>>(reqs);
+            }
+
+        }
+
         public async Task InsertRequest(String idUser, String address, String doctype)
         {
             if (idUser == String.Empty) throw new ArgumentNullException();
@@ -64,6 +76,17 @@ namespace TownHallD.Services
 
                 var req = _mapper.Map<Request>(request);
                 await _requestRepo.UpdateRequest(req, house, document);
+            }
+        }
+
+        public async Task UpdateRequestAdmin(RequestDTO request, String state)
+        {
+            if ((request.Id == null) || (state == String.Empty)) throw new ArgumentNullException();
+            else
+            {
+
+                var req = _mapper.Map<Request>(request);
+                await _requestRepo.UpdateRequestAdmin(req, state);
             }
         }
     }

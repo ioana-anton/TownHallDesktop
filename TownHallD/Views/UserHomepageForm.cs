@@ -115,11 +115,17 @@ namespace TownHallD.Views
             }
         }
 
-        private async void showRequests()
+        private async void showRequests(int opt = 0)
         {
             try
             {
-                List<RequestDTO> reqs = await _requestController.ShowRequests();
+                List<RequestDTO> reqs = new List<RequestDTO>();
+                if (opt == 0)
+                    reqs = await _requestController.ShowRequests();
+                if (opt == 1)
+                    reqs = await _requestController.ShowSortedRequestsByDate();
+
+                Console.WriteLine("Numarul de requesturi totale: " + reqs.Count);
 
                 if (reqs != null)
                 {
@@ -130,17 +136,31 @@ namespace TownHallD.Views
                     {
                         var req = reqs.ElementAt(i);
                         if (req.User != null)
+                        {
+                            //if (AdminLabel.Text.Equals("False"))
+
                             if (req.User.Id.Equals(IdUserLabel.Text))
                                 //house si user dau null
-                                displayRequests.Add(new DisplayRequestDTO(req.Id, req.State, req.House.Address, req.User.Id, req.Document.Type));
+                                displayRequests.Add(new DisplayRequestDTO(req.Id, req.State, req.House.Address, req.User.Id, req.Document.Type, req.Date));
+
+
+                            //if (AdminLabel.Text.Equals("True"))
+                            //  displayRequests.Add(new DisplayRequestDTO(req.Id, req.State, req.House.Address, req.User.Id, req.Document.Type, req.Date));
+                        }
+
                     }
 
+                    Console.WriteLine(displayRequests.Count);
                     dataGridView2.DataSource = displayRequests;
 
                     foreach (DataGridViewColumn col in dataGridView2.Columns)
                     {
-                        if (col.HeaderText.Equals("State") || col.HeaderText.Equals("Id") || col.HeaderText.Equals("User"))
-                            col.ReadOnly = true;
+                        if (AdminLabel.Text.Equals("False"))
+                            if (col.HeaderText.Equals("State") || col.HeaderText.Equals("Id") || col.HeaderText.Equals("User"))
+                                col.ReadOnly = true;
+                        if (AdminLabel.Text.Equals("True"))
+                            if (col.HeaderText.Equals("House") || col.HeaderText.Equals("Id") || col.HeaderText.Equals("User") || col.HeaderText.Equals("Document"))
+                                col.ReadOnly = true;
                     }
 
                     dataGridView2.Show();
@@ -207,6 +227,7 @@ namespace TownHallD.Views
             initRequestPanel();
             showRequests();
             RequestPanel.Show();
+            if (AdminLabel.Equals("False")) StateButton.Hide();
         }
 
         private async void AddRequestButton_Click(object sender, EventArgs e)
@@ -282,6 +303,41 @@ namespace TownHallD.Views
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private async void StateButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                List<RequestDTO> reqs = await _requestController.ShowRequests();
+                // List<DisplayRequestDTO> r = dataGridView2.ToList();
+
+
+                if (reqs != null)
+                {
+                    DataGridViewRow row = new DataGridViewRow();
+                    for (int i = 0; i < reqs.Count - 1; i++)
+                    {
+                        row = dataGridView2.Rows[i];
+                        var req = reqs.ElementAt(i);
+                        var newState = row.Cells[1].Value.ToString();
+                        Console.WriteLine(newState);
+                        await _requestController.UpdateRequestAdmin(req, newState);
+                    }
+                }
+
+                showRequests();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void dataGridView2_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex == 5) showRequests(1);
         }
     }
 }

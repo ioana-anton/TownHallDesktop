@@ -54,6 +54,7 @@ namespace TownHallD.Views
             // 
             // ShowUsersButton
             // 
+            this.ShowUsersButton.ForeColor = System.Drawing.SystemColors.Control;
             this.ShowUsersButton.Location = new System.Drawing.Point(39, 41);
             this.ShowUsersButton.Name = "ShowUsersButton";
             this.ShowUsersButton.Size = new System.Drawing.Size(155, 42);
@@ -75,6 +76,7 @@ namespace TownHallD.Views
             // 
             // EditDocumentButton
             // 
+            this.EditDocumentButton.ForeColor = System.Drawing.SystemColors.Control;
             this.EditDocumentButton.Location = new System.Drawing.Point(39, 118);
             this.EditDocumentButton.Name = "EditDocumentButton";
             this.EditDocumentButton.Size = new System.Drawing.Size(155, 42);
@@ -154,21 +156,25 @@ namespace TownHallD.Views
             // 
             // UpdateRequestButton
             // 
+            this.UpdateRequestButton.ForeColor = System.Drawing.SystemColors.Control;
             this.UpdateRequestButton.Location = new System.Drawing.Point(387, 19);
             this.UpdateRequestButton.Name = "UpdateRequestButton";
             this.UpdateRequestButton.Size = new System.Drawing.Size(142, 38);
             this.UpdateRequestButton.TabIndex = 2;
             this.UpdateRequestButton.Text = "Update";
             this.UpdateRequestButton.UseVisualStyleBackColor = true;
+            this.UpdateRequestButton.Click += new System.EventHandler(this.UpdateRequestButton_Click);
             // 
             // RemoveRequestButton
             // 
+            this.RemoveRequestButton.ForeColor = System.Drawing.SystemColors.Control;
             this.RemoveRequestButton.Location = new System.Drawing.Point(143, 18);
             this.RemoveRequestButton.Name = "RemoveRequestButton";
             this.RemoveRequestButton.Size = new System.Drawing.Size(142, 39);
             this.RemoveRequestButton.TabIndex = 1;
             this.RemoveRequestButton.Text = "Remove";
             this.RemoveRequestButton.UseVisualStyleBackColor = true;
+            this.RemoveRequestButton.Click += new System.EventHandler(this.RemoveRequestButton_Click);
             // 
             // RequestGridView
             // 
@@ -182,6 +188,7 @@ namespace TownHallD.Views
             // 
             // EditRequestsButton
             // 
+            this.EditRequestsButton.ForeColor = System.Drawing.SystemColors.Control;
             this.EditRequestsButton.Location = new System.Drawing.Point(39, 185);
             this.EditRequestsButton.Name = "EditRequestsButton";
             this.EditRequestsButton.Size = new System.Drawing.Size(155, 41);
@@ -192,6 +199,7 @@ namespace TownHallD.Views
             // 
             // Back2HomeButton
             // 
+            this.Back2HomeButton.ForeColor = System.Drawing.SystemColors.Control;
             this.Back2HomeButton.Location = new System.Drawing.Point(63, 301);
             this.Back2HomeButton.Name = "Back2HomeButton";
             this.Back2HomeButton.Size = new System.Drawing.Size(112, 34);

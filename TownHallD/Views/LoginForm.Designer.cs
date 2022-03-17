@@ -72,7 +72,8 @@
             // 
             // LoginButton
             // 
-            this.LoginButton.Location = new System.Drawing.Point(342, 278);
+            this.LoginButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.LoginButton.Location = new System.Drawing.Point(337, 278);
             this.LoginButton.Name = "LoginButton";
             this.LoginButton.Size = new System.Drawing.Size(163, 57);
             this.LoginButton.TabIndex = 4;
