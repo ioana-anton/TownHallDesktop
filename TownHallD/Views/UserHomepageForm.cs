@@ -35,6 +35,7 @@ namespace TownHallD.Views
         void refresh()
         {
             HousesPanel.Hide();
+            RequestPanel.Hide();
         }
 
         private void AdminButton_Click(object sender, EventArgs e)
@@ -57,6 +58,29 @@ namespace TownHallD.Views
             showHouses();
         }
 
+        async void initRequestPanel()
+        {
+
+            List<DisplayHouseDTO> houses = await _houseController.ShowHouse(IdUserLabel.Text);
+            List<String> addresses = new List<String>();
+            addresses.Add("Choose House");
+            foreach (DisplayHouseDTO house in houses)
+            {
+                addresses.Add(house.Address);
+            }
+            HouseComboBox.DataSource = addresses;
+
+            List<DocumentDTO> docs = await _documentController.ShowDocument();
+            List<String> type = new List<string>();
+            type.Add("Choose Doc");
+            foreach (DocumentDTO doc in docs)
+            {
+                type.Add(doc.Type);
+            }
+            comboBox2.DataSource = type;
+
+        }
+
         private void LogoutButton_Click(object sender, EventArgs e)
         {
             Application.Restart();
@@ -71,7 +95,7 @@ namespace TownHallD.Views
             try
             {
 
-                List<DisplayHouseDTO> houses = await _houseController.ShowHouse();
+                List<DisplayHouseDTO> houses = await _houseController.ShowHouse(IdUserLabel.Text);
 
                 if (houses != null)
                 {
@@ -87,16 +111,168 @@ namespace TownHallD.Views
             }
         }
 
-        private void AddHouseButton_Click(object sender, EventArgs e)
+        private async void showRequests()
+        {
+            try
+            {
+                List<RequestDTO> reqs = await _requestController.ShowRequests();
+
+                if (reqs != null)
+                {
+                    //Console.WriteLine(reqs.ElementAt(0).User.Id);
+                    List<DisplayRequestDTO> displayRequests = new List<DisplayRequestDTO>();
+                    // if (reqs.Count >= 1)
+                    for (int i = 0; i < reqs.Count; i++)
+                    {
+                        var req = reqs.ElementAt(i);
+                        if (req.User != null)
+                            if (req.User.Id.Equals(IdUserLabel.Text))
+                                //house si user dau null
+                                displayRequests.Add(new DisplayRequestDTO(req.Id, req.State, req.House.Address, req.User.Id, req.Document.Type));
+                    }
+
+                    dataGridView2.DataSource = displayRequests;
+
+                    foreach (DataGridViewColumn col in dataGridView2.Columns)
+                    {
+                        if (col.HeaderText.Equals("State") || col.HeaderText.Equals("Id") || col.HeaderText.Equals("User"))
+                            col.ReadOnly = true;
+                    }
+
+                    dataGridView2.Show();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void AddHouseButton_Click(object sender, EventArgs e)
         {
             try
             {
 
                 var house = new CreateHouseDTO(AddressBox.Text, HouseTypeComboBox.SelectedItem.ToString());
+                if (house.Type != null)
+                {
+                    await _houseController.AddHouse(house, IdUserLabel.Text);
+                    showHouses();
+                }
 
-                _houseController.AddHouse(house, IdUserLabel.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void RemoveHouseButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+                {
+                    if (row != null)
+                    {
+                        DisplayHouseDTO house = row.DataBoundItem as DisplayHouseDTO;
+
+                        HouseDTO housey = new HouseDTO();
+                        housey.Id = house.Id;
+                        if (housey != null)
+                        {
+                            await _houseController.RemoveHouse(housey);
+                        }
+
+                    }
+                }
+
                 showHouses();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
+        private void EditRequestsButton_Click(object sender, EventArgs e)
+        {
+            refresh();
+            initRequestPanel();
+            showRequests();
+            RequestPanel.Show();
+        }
+
+        private async void AddRequestButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var house = HouseComboBox.SelectedItem.ToString();
+                var document = comboBox2.SelectedItem.ToString();
+                await _requestController.AddRequest(IdUserLabel.Text, house, document);
+                showRequests();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void RemoveRequestButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                foreach (DataGridViewRow row in dataGridView2.SelectedRows)
+                {
+                    if (row != null)
+                    {
+                        DisplayRequestDTO request = row.DataBoundItem as DisplayRequestDTO;
+
+                        RequestDTO requesty = new RequestDTO();
+                        requesty.Id = request.Id;
+                        if (requesty != null)
+                        {
+                            await _requestController.RemoveRequest(requesty);
+                        }
+                    }
+                }
+
+                showRequests();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private async void UpdateRequestButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                List<RequestDTO> reqs = await _requestController.ShowRequests();
+                // List<DisplayRequestDTO> r = dataGridView2.ToList();
+
+
+                if (reqs != null)
+                {
+                    DataGridViewRow row = new DataGridViewRow();
+                    for (int i = 0; i < reqs.Count - 1; i++)
+                    {
+                        row = dataGridView2.Rows[i];
+                        var req = reqs.ElementAt(i);
+                        var newHouse = row.Cells[2].Value.ToString();
+                        var newDocument = row.Cells[4].Value.ToString();
+                        // Console.WriteLine(newHouse);
+                        await _requestController.UpdateRequest(req, newHouse, newDocument);
+                    }
+                }
+
+                showRequests();
             }
             catch (Exception ex)
             {

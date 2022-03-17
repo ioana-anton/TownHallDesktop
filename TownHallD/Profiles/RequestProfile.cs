@@ -15,6 +15,8 @@ namespace TownHallD.Profiles
         {
             CreateMap<Request, RequestDTO>();
             CreateMap<RequestDTO, Request>();
+            CreateMap<CreateRequestDTO, Request>();
+            CreateMap<Request, CreateRequestDTO>();
         }
 
     }

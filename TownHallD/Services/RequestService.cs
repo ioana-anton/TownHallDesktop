@@ -27,6 +27,7 @@ namespace TownHallD.Services
             else
             {
                 var req = _mapper.Map<Request>(request);
+
                 await _requestRepo.DeleteRequest(req);
             }
 
@@ -36,8 +37,34 @@ namespace TownHallD.Services
         {
             var reqs = await _requestRepo.GetAllRequests();
             if (reqs == null) return null;
-            else return _mapper.Map<List<RequestDTO>>(reqs);
+            else
+            {
 
+                return _mapper.Map<List<RequestDTO>>(reqs);
+            }
+
+        }
+
+        public async Task InsertRequest(String idUser, String address, String doctype)
+        {
+            if (idUser == String.Empty) throw new ArgumentNullException();
+            else
+            {
+                var res = new Request();
+                Console.WriteLine("Inserting request: " + res.Id);
+                await _requestRepo.InsertNewRequest(res, idUser, address, doctype);
+            }
+        }
+
+        public async Task UpdateRequest(RequestDTO request, String house, String document)
+        {
+            if ((request.Id == null) || (house == String.Empty) || (document == string.Empty)) throw new ArgumentNullException();
+            else
+            {
+
+                var req = _mapper.Map<Request>(request);
+                await _requestRepo.UpdateRequest(req, house, document);
+            }
         }
     }
 }

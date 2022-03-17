@@ -26,19 +26,20 @@ namespace TownHallD.Services
             if (house.Address == String.Empty) throw new ArgumentNullException();
             else
             {
-                //Console.WriteLine("hawo from house_service uwu");
-                // var res = _mapper.Map<House>(house); //ceva nu merge
-                var res = new House();
-                res.Address = house.Address;
-                res.Type = house.Type;
-                Console.WriteLine(res.Id);
+
+                var res = _mapper.Map<House>(house); //ceva nu merge
+                                                     // var res = new House();
+                                                     //res.Address = house.Address;
+                                                     //res.Type = house.Type;
+                                                     // Console.WriteLine(res.Id);
+                Console.WriteLine("Inserted house: " + res.Id);
                 await _houseRepo.InsertNewHouse(res, idUser);
             }
         }
 
         public async Task DeleteHouse(HouseDTO house)
         {
-            if (house == null) throw new ArgumentNullException();
+            if (house.Id == null) throw new ArgumentNullException();
             else
             {
                 var res = _mapper.Map<House>(house);
@@ -47,9 +48,9 @@ namespace TownHallD.Services
 
         }
 
-        public async Task<List<DisplayHouseDTO>> ShowHouses()
+        public async Task<List<DisplayHouseDTO>> ShowHouses(String id)
         {
-            var res = await _houseRepo.GetAllHouses();
+            var res = await _houseRepo.GetAllHouses(id);
             if (res == null) return null;
             else return _mapper.Map<List<DisplayHouseDTO>>(res);
 

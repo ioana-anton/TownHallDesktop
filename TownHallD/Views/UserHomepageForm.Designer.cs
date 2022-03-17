@@ -40,8 +40,18 @@
             this.RemoveHouseButton = new System.Windows.Forms.Button();
             this.AddHouseButton = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.RequestPanel = new System.Windows.Forms.Panel();
+            this.UpdateRequestButton = new System.Windows.Forms.Button();
+            this.RemoveRequestButton = new System.Windows.Forms.Button();
+            this.AddRequestButton = new System.Windows.Forms.Button();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.HouseComboBox = new System.Windows.Forms.ComboBox();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
             this.HousesPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.RequestPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // TestLabel
@@ -49,9 +59,9 @@
             this.TestLabel.AutoSize = true;
             this.TestLabel.Location = new System.Drawing.Point(12, 9);
             this.TestLabel.Name = "TestLabel";
-            this.TestLabel.Size = new System.Drawing.Size(51, 25);
+            this.TestLabel.Size = new System.Drawing.Size(59, 25);
             this.TestLabel.TabIndex = 0;
-            this.TestLabel.Text = "Buna";
+            this.TestLabel.Text = "Name";
             // 
             // AdminButton
             // 
@@ -67,7 +77,7 @@
             // IdUserLabel
             // 
             this.IdUserLabel.AutoSize = true;
-            this.IdUserLabel.Location = new System.Drawing.Point(12, 36);
+            this.IdUserLabel.Location = new System.Drawing.Point(112, 36);
             this.IdUserLabel.Name = "IdUserLabel";
             this.IdUserLabel.Size = new System.Drawing.Size(63, 25);
             this.IdUserLabel.TabIndex = 2;
@@ -94,6 +104,7 @@
             this.EditRequestsButton.TabIndex = 4;
             this.EditRequestsButton.Text = "Edit Requests";
             this.EditRequestsButton.UseVisualStyleBackColor = true;
+            this.EditRequestsButton.Click += new System.EventHandler(this.EditRequestsButton_Click);
             // 
             // LogoutButton
             // 
@@ -151,6 +162,7 @@
             this.RemoveHouseButton.TabIndex = 2;
             this.RemoveHouseButton.Text = "Remove House";
             this.RemoveHouseButton.UseVisualStyleBackColor = true;
+            this.RemoveHouseButton.Click += new System.EventHandler(this.RemoveHouseButton_Click);
             // 
             // AddHouseButton
             // 
@@ -174,11 +186,98 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
+            // RequestPanel
+            // 
+            this.RequestPanel.Controls.Add(this.UpdateRequestButton);
+            this.RequestPanel.Controls.Add(this.RemoveRequestButton);
+            this.RequestPanel.Controls.Add(this.AddRequestButton);
+            this.RequestPanel.Controls.Add(this.comboBox2);
+            this.RequestPanel.Controls.Add(this.HouseComboBox);
+            this.RequestPanel.Controls.Add(this.dataGridView2);
+            this.RequestPanel.Location = new System.Drawing.Point(247, 81);
+            this.RequestPanel.Name = "RequestPanel";
+            this.RequestPanel.Size = new System.Drawing.Size(664, 427);
+            this.RequestPanel.TabIndex = 7;
+            // 
+            // UpdateRequestButton
+            // 
+            this.UpdateRequestButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.UpdateRequestButton.Location = new System.Drawing.Point(457, 61);
+            this.UpdateRequestButton.Name = "UpdateRequestButton";
+            this.UpdateRequestButton.Size = new System.Drawing.Size(139, 45);
+            this.UpdateRequestButton.TabIndex = 5;
+            this.UpdateRequestButton.Text = "Update";
+            this.UpdateRequestButton.UseVisualStyleBackColor = true;
+            this.UpdateRequestButton.Click += new System.EventHandler(this.UpdateRequestButton_Click);
+            // 
+            // RemoveRequestButton
+            // 
+            this.RemoveRequestButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.RemoveRequestButton.Location = new System.Drawing.Point(457, 10);
+            this.RemoveRequestButton.Name = "RemoveRequestButton";
+            this.RemoveRequestButton.Size = new System.Drawing.Size(139, 45);
+            this.RemoveRequestButton.TabIndex = 4;
+            this.RemoveRequestButton.Text = "Remove";
+            this.RemoveRequestButton.UseVisualStyleBackColor = true;
+            this.RemoveRequestButton.Click += new System.EventHandler(this.RemoveRequestButton_Click);
+            // 
+            // AddRequestButton
+            // 
+            this.AddRequestButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.AddRequestButton.Location = new System.Drawing.Point(244, 34);
+            this.AddRequestButton.Name = "AddRequestButton";
+            this.AddRequestButton.Size = new System.Drawing.Size(139, 45);
+            this.AddRequestButton.TabIndex = 3;
+            this.AddRequestButton.Text = "Add";
+            this.AddRequestButton.UseVisualStyleBackColor = true;
+            this.AddRequestButton.Click += new System.EventHandler(this.AddRequestButton_Click);
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.ForeColor = System.Drawing.SystemColors.Window;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(15, 64);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(182, 33);
+            this.comboBox2.TabIndex = 2;
+            this.comboBox2.Text = "Choose Document";
+            // 
+            // HouseComboBox
+            // 
+            this.HouseComboBox.ForeColor = System.Drawing.SystemColors.Window;
+            this.HouseComboBox.FormattingEnabled = true;
+            this.HouseComboBox.Location = new System.Drawing.Point(15, 17);
+            this.HouseComboBox.Name = "HouseComboBox";
+            this.HouseComboBox.Size = new System.Drawing.Size(182, 33);
+            this.HouseComboBox.TabIndex = 1;
+            this.HouseComboBox.Text = "Choose House";
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Location = new System.Drawing.Point(15, 118);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowHeadersWidth = 62;
+            this.dataGridView2.RowTemplate.Height = 33;
+            this.dataGridView2.Size = new System.Drawing.Size(630, 292);
+            this.dataGridView2.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 36);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 25);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "IdUser";
+            // 
             // UserHomepageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(923, 520);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.RequestPanel);
             this.Controls.Add(this.HousesPanel);
             this.Controls.Add(this.LogoutButton);
             this.Controls.Add(this.EditRequestsButton);
@@ -190,6 +289,8 @@
             this.Text = "HomepageForm";
             this.HousesPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.RequestPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -226,5 +327,13 @@
         private DataGridView dataGridView1;
         private ComboBox HouseTypeComboBox;
         private RichTextBox AddressBox;
+        private Panel RequestPanel;
+        private Button AddRequestButton;
+        private ComboBox comboBox2;
+        private ComboBox HouseComboBox;
+        private DataGridView dataGridView2;
+        private Button UpdateRequestButton;
+        private Button RemoveRequestButton;
+        private Label label1;
     }
 }

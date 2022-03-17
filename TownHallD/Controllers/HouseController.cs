@@ -21,10 +21,12 @@ namespace TownHallD.Controllers
         {
             try
             {
+
                 await _houseService.InsertHouse(house, idUser);
             }
-            catch (Exception ex)
+            catch (ArgumentNullException ex)
             {
+
                 throw new Exception(Utils.Constants.ErrorMessages.INSERT_HOUSE_ERROR_MESSAGE);
             }
 
@@ -43,11 +45,11 @@ namespace TownHallD.Controllers
 
         }
 
-        public async Task<List<DisplayHouseDTO>> ShowHouse()
+        public async Task<List<DisplayHouseDTO>> ShowHouse(String id)
         {
             try
             {
-                var res = await _houseService.ShowHouses();
+                var res = await _houseService.ShowHouses(id);
 
                 return res;
             }

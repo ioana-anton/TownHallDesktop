@@ -17,7 +17,7 @@ namespace TownHallD.Controllers
             _requestService = requestService;
         }
 
-        public async Task RemoveDocument(RequestDTO request)
+        public async Task RemoveRequest(RequestDTO request)
         {
             try
             {
@@ -40,10 +40,38 @@ namespace TownHallD.Controllers
             }
             catch (Exception ex)
             {
-
                 throw new Exception(Utils.Constants.ErrorMessages.SELECT_REQUESTS_ERROR_MESSAGE);
             }
 
         }
+
+        public async Task AddRequest(String idUser, String address, String docType)
+        {
+            try
+            {
+
+                await _requestService.InsertRequest(idUser, address, docType);
+            }
+            catch (ArgumentNullException ex)
+            {
+
+                throw new Exception(Utils.Constants.ErrorMessages.INSERT_HOUSE_ERROR_MESSAGE);
+            }
+        }
+
+        public async Task UpdateRequest(RequestDTO request, String house, String document)
+        {
+            try
+            {
+
+                await _requestService.UpdateRequest(request, house, document);
+            }
+            catch (ArgumentNullException ex)
+            {
+
+                throw new Exception(Utils.Constants.ErrorMessages.UPDATE_REQUEST_ERROR_MESSAGE);
+            }
+        }
+
     }
 }

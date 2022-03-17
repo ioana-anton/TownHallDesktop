@@ -17,14 +17,10 @@ namespace TownHallD.Repositories
             this.databaseContext = dbContext;
         }
 
-        public async Task<User> getUser(String id)
-        {
-            return await databaseContext.Users.FindAsync(id);
-        }
 
         public async Task InsertNewHouse(House house, String idUser)
         {
-            house.User = await getUser(idUser);
+            house.User = await databaseContext.Users.FindAsync(idUser);
             databaseContext.Houses.Add(house);
             await databaseContext.SaveChangesAsync();
         }
@@ -35,9 +31,9 @@ namespace TownHallD.Repositories
             await databaseContext.SaveChangesAsync();
         }
 
-        public async Task<List<House>> GetAllHouses()
+        public async Task<List<House>> GetAllHouses(String id)
         {
-            var houses = databaseContext.Houses.ToList();
+            var houses = databaseContext.Houses.Where(a => a.User.Id.Equals(id)).ToList();
             return houses;
         }
     }
