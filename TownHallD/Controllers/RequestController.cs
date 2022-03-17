@@ -59,6 +59,22 @@ namespace TownHallD.Controllers
             }
 
         }
+
+        public async Task<List<RequestDTO>> ShowRealTimeFilter(String s)
+        {
+            try
+            {
+                var res = await _requestService.SelectLikeRequests(s);
+
+                return res;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(Utils.Constants.ErrorMessages.SELECT_REQUESTS_ERROR_MESSAGE);
+            }
+
+        }
+
         public async Task AddRequest(String idUser, String address, String docType)
         {
             try

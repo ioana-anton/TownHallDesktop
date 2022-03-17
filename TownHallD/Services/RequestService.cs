@@ -57,6 +57,18 @@ namespace TownHallD.Services
 
         }
 
+        public async Task<List<RequestDTO>> SelectLikeRequests(String s)
+        {
+            var reqs = await _requestRepo.SelectLikeRequests(s);
+            if (reqs == null) throw new ArgumentNullException();
+            else
+            {
+
+                return _mapper.Map<List<RequestDTO>>(reqs);
+            }
+
+        }
+
 
         public async Task InsertRequest(String idUser, String address, String doctype)
         {

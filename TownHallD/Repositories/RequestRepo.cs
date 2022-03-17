@@ -58,9 +58,13 @@ namespace TownHallD.Repositories
             return reqs.ToList<Request>();
         }
 
-        public async Task<List<Request>> SelectRequests(DateTime date, String idUser)
+        public async Task<List<Request>> SelectLikeRequests(String s)
         {
-            var reqs = databaseContext.Requests.Where(d => d.Date.Year == date.Year).Where(x => x.User.Id.Equals(idUser)).Include(r => r.User).Include(r => r.Document).Include(r => r.House).ToList();
+            var reqs = databaseContext.Requests.Where(r => r.Id.Contains(s))
+                .Include(r => r.User)
+                .Include(r => r.Document)
+                .Include(r => r.House)
+                .ToList();
             return reqs;
         }
 

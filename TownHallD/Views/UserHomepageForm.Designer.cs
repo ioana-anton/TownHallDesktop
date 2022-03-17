@@ -308,11 +308,12 @@
             // 
             // filterTextBox
             // 
-            this.filterTextBox.Location = new System.Drawing.Point(40, 456);
+            this.filterTextBox.Location = new System.Drawing.Point(33, 456);
             this.filterTextBox.Name = "filterTextBox";
             this.filterTextBox.Size = new System.Drawing.Size(181, 35);
             this.filterTextBox.TabIndex = 11;
             this.filterTextBox.Text = "";
+            this.filterTextBox.TextChanged += new System.EventHandler(this.filterTextBox_TextChanged);
             // 
             // UserHomepageForm
             // 

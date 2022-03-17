@@ -340,5 +340,18 @@ namespace TownHallD.Views
         {
             if (e.ColumnIndex == 5) showRequests(1);
         }
+
+        private async void filterTextBox_TextChanged(object sender, EventArgs e)
+        {
+            List<RequestDTO> r = new List<RequestDTO>();
+            if (filterTextBox.Text != String.Empty)
+            {
+                r = await _requestController.ShowRealTimeFilter(filterTextBox.Text);
+                dataGridView2.DataSource = r;
+            }
+            else
+                showRequests();
+
+        }
     }
 }
