@@ -36,7 +36,7 @@ namespace TownHallD.Services
         public async Task<List<RequestDTO>> ShowRequests()
         {
             var reqs = await _requestRepo.GetAllRequests();
-            if (reqs == null) return null;
+            if (reqs == null) throw new ArgumentNullException();
             else
             {
 
@@ -48,7 +48,7 @@ namespace TownHallD.Services
         public async Task<List<RequestDTO>> GetSortedRequestsByDate()
         {
             var reqs = await _requestRepo.GetSortedRequestsByDate();
-            if (reqs == null) return null;
+            if (reqs == null) throw new ArgumentNullException();
             else
             {
 
@@ -57,6 +57,7 @@ namespace TownHallD.Services
 
         }
 
+
         public async Task InsertRequest(String idUser, String address, String doctype)
         {
             if (idUser == String.Empty) throw new ArgumentNullException();
@@ -64,7 +65,14 @@ namespace TownHallD.Services
             {
                 var res = new Request();
                 Console.WriteLine("Inserting request: " + res.Id);
-                await _requestRepo.InsertNewRequest(res, idUser, address, doctype);
+                try
+                {
+                    await _requestRepo.InsertNewRequest(res, idUser, address, doctype);
+                }
+                catch (Exception ex)
+                {
+                    throw new ArgumentException(Utils.Constants.ErrorMessages.T3_REQUESTS_ERROR_MESSAGE);
+                }
             }
         }
 

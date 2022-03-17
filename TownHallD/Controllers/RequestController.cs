@@ -38,7 +38,7 @@ namespace TownHallD.Controllers
 
                 return res;
             }
-            catch (Exception ex)
+            catch (ArgumentNullException ex)
             {
                 throw new Exception(Utils.Constants.ErrorMessages.SELECT_REQUESTS_ERROR_MESSAGE);
             }
@@ -53,7 +53,7 @@ namespace TownHallD.Controllers
 
                 return res;
             }
-            catch (Exception ex)
+            catch (ArgumentNullException ex)
             {
                 throw new Exception(Utils.Constants.ErrorMessages.SELECT_REQUESTS_ERROR_MESSAGE);
             }

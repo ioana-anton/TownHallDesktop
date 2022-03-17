@@ -51,6 +51,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.AdminLabel = new System.Windows.Forms.Label();
+            this.filterTextBox = new System.Windows.Forms.RichTextBox();
             this.HousesPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.RequestPanel.SuspendLayout();
@@ -305,11 +306,20 @@
             this.AdminLabel.TabIndex = 10;
             this.AdminLabel.Text = "null";
             // 
+            // filterTextBox
+            // 
+            this.filterTextBox.Location = new System.Drawing.Point(40, 456);
+            this.filterTextBox.Name = "filterTextBox";
+            this.filterTextBox.Size = new System.Drawing.Size(181, 35);
+            this.filterTextBox.TabIndex = 11;
+            this.filterTextBox.Text = "";
+            // 
             // UserHomepageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(923, 520);
+            this.Controls.Add(this.filterTextBox);
             this.Controls.Add(this.AdminLabel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -380,5 +390,6 @@
         }
 
         private Button StateButton;
+        private RichTextBox filterTextBox;
     }
 }

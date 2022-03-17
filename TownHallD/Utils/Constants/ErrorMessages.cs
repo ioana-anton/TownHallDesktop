@@ -15,6 +15,7 @@ namespace TownHallD.Utils.Constants
         public const string UPDATE_REQUEST_ERROR_MESSAGE = "Couldn't update request.";
         public const string DELETE_REQUEST_ERROR_MESSAGE = "Couldn't delete request.";
         public const string SELECT_REQUESTS_ERROR_MESSAGE = "Couldn't find requests.";
+        public const string T3_REQUESTS_ERROR_MESSAGE = "Already made 3 requests this year.";
 
 
         public const string INSERT_HOUSE_ERROR_MESSAGE = "Couldn't insert house.";

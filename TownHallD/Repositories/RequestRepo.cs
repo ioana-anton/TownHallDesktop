@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using TownHallD.DataAccess;
 using TownHallD.DTO;
 using TownHallD.Entities;
@@ -46,22 +47,27 @@ namespace TownHallD.Repositories
 
         public async Task<List<Request>> GetAllRequests()
         {
-            var reqs = databaseContext.Requests.ToList();
-            //Console.WriteLine(reqs[0].House.Id);
+            var reqs = databaseContext.Requests.Include(r => r.User).Include(r => r.Document).Include(r => r.House).ToList();
             return reqs;
         }
 
         public async Task<List<Request>> GetSortedRequestsByDate()
         {
 
-            List<Request> reqs = (List<Request>)databaseContext.Requests.ToList().OrderBy(item => item.Date);
-            //Console.WriteLine(reqs[0].House.Id);
+            var reqs = databaseContext.Requests.Include(r => r.User).Include(r => r.Document).Include(r => r.House).ToList().OrderBy(item => item.Date);
+            return reqs.ToList<Request>();
+        }
+
+        public async Task<List<Request>> SelectRequests(DateTime date, String idUser)
+        {
+            var reqs = databaseContext.Requests.Where(d => d.Date.Year == date.Year).Where(x => x.User.Id.Equals(idUser)).Include(r => r.User).Include(r => r.Document).Include(r => r.House).ToList();
             return reqs;
         }
 
         public async Task InsertNewRequest(Request request, String idUser, String address, String doctype, String State = null)
         {
-
+            var resq = databaseContext.Requests.Where(d => d.Date.Year == DateTime.Now.Year).Where(x => x.User.Id.Equals(idUser)).Include(r => r.User).Include(r => r.Document).Include(r => r.House).ToList();
+            if (resq.Count >= 3) throw new Exception();
             request.User = await databaseContext.Users.FindAsync(idUser);
             request.House = (House)databaseContext.Houses.Where(a => a.Address.Equals(address)).FirstOrDefault();
             request.Document = (Document)databaseContext.Documents.Where(a => a.Type.Equals(doctype)).FirstOrDefault();

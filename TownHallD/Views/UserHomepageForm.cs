@@ -129,6 +129,7 @@ namespace TownHallD.Views
 
                 if (reqs != null)
                 {
+
                     //Console.WriteLine(reqs.ElementAt(0).User.Id);
                     List<DisplayRequestDTO> displayRequests = new List<DisplayRequestDTO>();
                     // if (reqs.Count >= 1)
@@ -137,15 +138,15 @@ namespace TownHallD.Views
                         var req = reqs.ElementAt(i);
                         if (req.User != null)
                         {
-                            //if (AdminLabel.Text.Equals("False"))
+                            if (AdminLabel.Text.Equals("False"))
 
-                            if (req.User.Id.Equals(IdUserLabel.Text))
-                                //house si user dau null
+                                if (req.User.Id.Equals(IdUserLabel.Text))
+                                    //house si user dau null
+                                    displayRequests.Add(new DisplayRequestDTO(req.Id, req.State, req.House.Address, req.User.Id, req.Document.Type, req.Date));
+
+
+                            if (AdminLabel.Text.Equals("True"))
                                 displayRequests.Add(new DisplayRequestDTO(req.Id, req.State, req.House.Address, req.User.Id, req.Document.Type, req.Date));
-
-
-                            //if (AdminLabel.Text.Equals("True"))
-                            //  displayRequests.Add(new DisplayRequestDTO(req.Id, req.State, req.House.Address, req.User.Id, req.Document.Type, req.Date));
                         }
 
                     }
