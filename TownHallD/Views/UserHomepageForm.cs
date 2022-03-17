@@ -341,13 +341,57 @@ namespace TownHallD.Views
             if (e.ColumnIndex == 5) showRequests(1);
         }
 
+        private void showRequestLive(List<RequestDTO> reqs)
+        {
+            if (reqs != null)
+            {
+
+                //Console.WriteLine(reqs.ElementAt(0).User.Id);
+                List<DisplayRequestDTO> displayRequests = new List<DisplayRequestDTO>();
+                // if (reqs.Count >= 1)
+                for (int i = 0; i < reqs.Count; i++)
+                {
+                    var req = reqs.ElementAt(i);
+                    if (req.User != null)
+                    {
+                        if (AdminLabel.Text.Equals("False"))
+
+                            if (req.User.Id.Equals(IdUserLabel.Text))
+                                //house si user dau null
+                                displayRequests.Add(new DisplayRequestDTO(req.Id, req.State, req.House.Address, req.User.Id, req.Document.Type, req.Date));
+
+
+                        if (AdminLabel.Text.Equals("True"))
+                            displayRequests.Add(new DisplayRequestDTO(req.Id, req.State, req.House.Address, req.User.Id, req.Document.Type, req.Date));
+                    }
+
+                }
+
+                Console.WriteLine(displayRequests.Count);
+                dataGridView2.DataSource = displayRequests;
+
+                foreach (DataGridViewColumn col in dataGridView2.Columns)
+                {
+                    if (AdminLabel.Text.Equals("False"))
+                        if (col.HeaderText.Equals("State") || col.HeaderText.Equals("Id") || col.HeaderText.Equals("User"))
+                            col.ReadOnly = true;
+                    if (AdminLabel.Text.Equals("True"))
+                        if (col.HeaderText.Equals("House") || col.HeaderText.Equals("Id") || col.HeaderText.Equals("User") || col.HeaderText.Equals("Document"))
+                            col.ReadOnly = true;
+                }
+
+                dataGridView2.Show();
+            }
+        }
         private async void filterTextBox_TextChanged(object sender, EventArgs e)
         {
             List<RequestDTO> r = new List<RequestDTO>();
             if (filterTextBox.Text != String.Empty)
             {
                 r = await _requestController.ShowRealTimeFilter(filterTextBox.Text);
-                dataGridView2.DataSource = r;
+                // dataGridView2.DataSource = r;
+
+                showRequestLive(r);
             }
             else
                 showRequests();

@@ -60,7 +60,7 @@ namespace TownHallD.Repositories
 
         public async Task<List<Request>> SelectLikeRequests(String s)
         {
-            var reqs = databaseContext.Requests.Where(r => r.Id.Contains(s))
+            var reqs = databaseContext.Requests.Where(r => r.State.Contains(s))
                 .Include(r => r.User)
                 .Include(r => r.Document)
                 .Include(r => r.House)
