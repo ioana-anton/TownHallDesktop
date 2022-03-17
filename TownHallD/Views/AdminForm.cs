@@ -19,6 +19,7 @@ namespace TownHallD.Views
         private UserController _userController;
         private DocumentController _documentController;
         private RequestController _requestController;
+        private HouseController _houseController;
 
         void refresh()
         {
@@ -27,13 +28,14 @@ namespace TownHallD.Views
             RequestPanel.Hide();
         }
 
-        public AdminForm(UserController userController, DocumentController documentController, RequestController requestController)
+        public AdminForm(UserController userController, DocumentController documentController, RequestController requestController, HouseController houseController)
         {
             InitializeComponent();
             refresh();
             _userController = userController;
             _documentController = documentController;
             _requestController = requestController;
+            _houseController = houseController;
         }
 
         private async void ShowUsersButton_Click(object sender, EventArgs e)
@@ -141,8 +143,10 @@ namespace TownHallD.Views
 
         private void Back2HomeButton_Click(object sender, EventArgs e)
         {
+            //UserHomepageForm form = new UserHomepageForm(_userController, _documentController, _requestController, _houseController);
             this.Close();
             Program.MyAppCxt.MainForm.Show();
+            // form.Show();
         }
     }
 

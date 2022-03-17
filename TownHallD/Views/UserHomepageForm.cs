@@ -40,10 +40,14 @@ namespace TownHallD.Views
 
         private void AdminButton_Click(object sender, EventArgs e)
         {
-            AdminForm adminForm = new AdminForm(_userController, _documentController, _requestController);
+            AdminForm adminForm = new AdminForm(_userController, _documentController, _requestController, _houseController);
 
             this.Hide();
+
+            // Program.MyAppCxt.MainForm = adminForm;
             adminForm.Show();
+
+
         }
 
         private void label1_Click(object sender, EventArgs e)

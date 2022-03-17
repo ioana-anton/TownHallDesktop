@@ -36,6 +36,7 @@ namespace TownHallD.Repositories
         public async Task<List<Request>> GetAllRequests()
         {
             var reqs = databaseContext.Requests.ToList();
+            //Console.WriteLine(reqs[0].House.Id);
             return reqs;
         }
 
